@@ -1,1 +1,23 @@
-<p>docutest works!</p>
+<nz-card style="width: 100%;" nzTitle="Generador de PDF" [nzExtra]="extraTemplate">
+    <nz-card-tab>
+      <nz-tabset nzSize="large" [(nzSelectedIndex)]="index1">
+        <nz-tab nzTitle="Consumidor">
+            <p>Content of Tab Pane 1</p>
+            <br />
+        </nz-tab>
+        <nz-tab nzTitle="Orden">
+            <p>Content of Tab Pane 2</p>
+            <br />
+        </nz-tab>
+        <nz-tab nzTitle="Detalles adicionales">
+            <p>Content of Tab Pane 3</p>
+            <br />
+        </nz-tab>
+      </nz-tabset>
+    </nz-card-tab>
+  </nz-card>
+  <ng-template #extraTemplate>
+    <button nz-button nzType="primary" (click)="generatePDF()">Primary Button</button>
+  </ng-template>
+  <br />
+
