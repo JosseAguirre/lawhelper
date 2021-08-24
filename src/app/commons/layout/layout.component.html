@@ -2,7 +2,8 @@
     <nz-sider class="menu-sidebar"
               nzCollapsible
               nzWidth="256px"
-              nzBreakpoint="md"
+              nzBreakpoint="lg"
+              [nzCollapsedWidth]="0"
               [(nzCollapsed)]="isCollapsed"
               [nzTrigger]="null">
       <div class="sidebar-logo">
@@ -15,7 +16,7 @@
         <li nz-submenu nzOpen nzTitle="Documentos penales" nzIcon="dashboard">
           <ul>
             <li nz-menu-item nzMatchRouter>
-              <a routerLink="/docutest">Documento de prueba</a>
+              <a routerLink="/dashboard/docutest">Documento de prueba</a>
             </li>
             <li nz-menu-item nzMatchRouter>
               <a>Documento 1</a>
@@ -50,6 +51,7 @@
           <router-outlet></router-outlet>
         </div>
       </nz-content>
+      <nz-footer>Law Helper ©2021</nz-footer>
     </nz-layout>
   </nz-layout>
   

@@ -1,113 +1,106 @@
 <nz-card style="width: 100%;" nzTitle="Generador de PDF" [nzExtra]="extraTemplate">
-    <nz-card-tab>
-      <nz-tabset nzSize="large" [(nzSelectedIndex)]="index1">
-        <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm">
-          <nz-tab nzTitle="Consumidor">
-              <p>Content of Tab Pane 1</p>
-              <div nz-row [nzGutter]="24">
-                <div nz-col [nzSpan]="12">
-                  <nz-form-item>
-                    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="name" nzRequired nzTooltipTitle="Ingresa tu nombre">
-                      <span>Nombre</span>
-                    </nz-form-label>
-                    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Por favor ingresa tu nombre!">
-                      <input nz-input id="name" [(ngModel)]="invoice.name" formControlName="name" />
-                    </nz-form-control>
-                  </nz-form-item>
-                </div>
-                <div nz-col [nzSpan]="12">
-                  <nz-form-item>
-                    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="email">E-mail</nz-form-label>
-                    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="El e-mail no es valido!">
-                      <input nz-input formControlName="email" [(ngModel)]="invoice.email" id="email" />
-                    </nz-form-control>
-                  </nz-form-item>
-                </div>
-              </div>
-              <div nz-row [nzGutter]="24">
-                <div nz-col [nzSpan]="12">
-                  <nz-form-item>
-                    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="address" nzRequired nzTooltipTitle="Ingresa tu dirección">
-                      <span>Dirección</span>
-                    </nz-form-label>
-                    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Por favor ingresa tu dirección!">
-                      <input nz-input id="address" [(ngModel)]="invoice.address" formControlName="address" />
-                    </nz-form-control>
-                  </nz-form-item>
-                </div>
-                <div nz-col [nzSpan]="12">
-                  <nz-form-item>
-                    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="number">Número célular</nz-form-label>
-                    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="El numero no es valido!">
-                      <input nz-input formControlName="number" [(ngModel)]="invoice.number" id="number" />
-                    </nz-form-control>
-                  </nz-form-item>
-                </div>
-              </div>
-              <br />
-          </nz-tab>
-          <nz-tab nzTitle="Orden">
-              <p>Content of Tab Pane 2</p>
-              <nz-table #borderedTable nzBordered>
-                <thead>
-                  <tr>
-                    <th>Producto</th>
-                    <th>Precio</th>
-                    <th>Cantidad</th>
-                    <th>Total
-                      <nz-divider nzType="vertical"></nz-divider> 
-                      <button nz-button nzType="primary" nzShape="circle" (click)="addProduct()"><i nz-icon nzType="plus"></i></button>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let product of invoice.products; let i=index">
-                    <td>
-                      <nz-form-item>
-                        <nz-form-control nzErrorTip="El producto es erroneo!">
-                          <input nz-input placeholder="Hola mundo" type="text" [(ngModel)]="product.product" formControlName="product" name="product{{i}}" id="producto" />
-                        </nz-form-control>
-                      </nz-form-item>
-                    </td>
-                    <td>
-                      <nz-form-item>
-                        <nz-form-control nzErrorTip="El precio es erroneo!">
-                          <input nz-input placeholder="1.99" type="number" min="0"  [(ngModel)]="product.price" formControlName="price" name="price{{i}}" id="precio" />
-                        </nz-form-control>
-                      </nz-form-item>
-                    </td>
-                    <td>
-                      <nz-form-item>
-                        <nz-form-control nzErrorTip="El precio es erroneo!">
-                          <input nz-input placeholder="7" type="number" min="0" [(ngModel)]="product.quantity" formControlName="quantity" name="quantity{{i}}" id="cantidad" />
-                        </nz-form-control>
-                      </nz-form-item>
-                    </td>
-                    <td>
-                      {{product.price * product.quantity || ''}}
-                    </td>
-                  </tr>
-                </tbody>
-              </nz-table>
-              <br />
-          </nz-tab>
-          <nz-tab nzTitle="Detalles adicionales">
-              <p>Content of Tab Pane 3</p>
-              <nz-form-item>
-                <nz-form-control>
-                  <nz-textarea-count [nzMaxCharacterCount]="100">
-                    <textarea rows="4" [(ngModel)]="invoice.details" formControlName="details" nz-input></textarea>
-                  </nz-textarea-count>
-                </nz-form-control>
-              </nz-form-item>
-              <br />
-          </nz-tab>
-        </form>
-      </nz-tabset>
-    </nz-card-tab>
-  </nz-card>
-  <ng-template #extraTemplate>
-    <button nz-button nzType="primary" (click)="validateForm.valid ? generatePDF(): ''">Primary Button</button>
-  </ng-template>
-  <br />
+    <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm">
+        <h3>Consumidor</h3>
+        <div nz-row [nzGutter]="24">
+          <div nz-col [nzSpan]="12">
+            <nz-form-item>
+              <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="name" nzRequired nzTooltipTitle="Ingresa tu nombre">
+                <span>Nombre</span>
+              </nz-form-label>
+              <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Por favor ingresa tu nombre!">
+                <input nz-input id="name" [(ngModel)]="invoice.name" formControlName="name" />
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+          <div nz-col [nzSpan]="12">
+            <nz-form-item>
+              <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="email">E-mail</nz-form-label>
+              <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="El e-mail no es valido!">
+                <input nz-input formControlName="email" [(ngModel)]="invoice.email" id="email" />
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+        </div>
+        <div nz-row [nzGutter]="24">
+          <div nz-col [nzSpan]="12">
+            <nz-form-item>
+              <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="address" nzRequired nzTooltipTitle="Ingresa tu dirección">
+                <span>Dirección</span>
+              </nz-form-label>
+              <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Por favor ingresa tu dirección!">
+                <input nz-input id="address" [(ngModel)]="invoice.address" formControlName="address" />
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+          <div nz-col [nzSpan]="12">
+            <nz-form-item>
+              <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="number">Número célular</nz-form-label>
+              <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="El numero no es valido!">
+                <input nz-input formControlName="number" [(ngModel)]="invoice.number" id="number" />
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+        </div>
+        <br />
+
+
+        <h3>Orden</h3>
+        <nz-table #borderedTable nzBordered>
+          <thead>
+            <tr>
+              <th>Producto</th>
+              <th>Precio</th>
+              <th>Cantidad</th>
+              <th>Total
+                <nz-divider nzType="vertical"></nz-divider> 
+                <button nz-button nzType="primary" nzShape="circle" (click)="addProduct()"><i nz-icon nzType="plus"></i></button>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let product of invoice.products; let i=index">
+              <td>
+                <nz-form-item>
+                  <nz-form-control nzErrorTip="El producto es erroneo!">
+                    <input nz-input placeholder="Hola mundo" type="text" [(ngModel)]="product.product" formControlName="product" name="Product{{i}}" id="producto" />
+                  </nz-form-control>
+                </nz-form-item>
+              </td>
+              <td>
+                <nz-form-item>
+                  <nz-form-control nzErrorTip="El precio es erroneo!">
+                    <input nz-input placeholder="1.99" type="number" min="0"  [(ngModel)]="product.price" formControlName="price" name="price{{i}}" id="precio" />
+                  </nz-form-control>
+                </nz-form-item>
+              </td>
+              <td>
+                <nz-form-item>
+                  <nz-form-control nzErrorTip="El precio es erroneo!">
+                    <input nz-input placeholder="7" type="number" min="0" [(ngModel)]="product.quantity" formControlName="quantity" name="quantity{{i}}" id="cantidad" />
+                  </nz-form-control>
+                </nz-form-item>
+              </td>
+              <td>
+                {{product.price * product.quantity || ''}}
+              </td>
+            </tr>
+          </tbody>
+        </nz-table>
+        <br />
+      
+        <h3>Detalles adicionales</h3>
+        <nz-form-item>
+          <nz-form-control>
+            <nz-textarea-count [nzMaxCharacterCount]="100">
+              <textarea rows="4" [(ngModel)]="invoice.details" formControlName="details" nz-input></textarea>
+            </nz-textarea-count>
+          </nz-form-control>
+        </nz-form-item>
+        <br />
+    </form>
+</nz-card>
+<ng-template #extraTemplate>
+  <button nz-button nzType="danger" (click)="generatePDF()">Generar PDF<i nz-icon nzType="file-pdf" nzTheme="outline"></i></button>
+</ng-template>
+<br />
 

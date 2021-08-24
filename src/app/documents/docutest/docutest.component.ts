@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { PdfMakeWrapper, Txt, Columns, Table, QR, Ul, Item } from 'pdfmake-wrapper';
 
@@ -42,9 +42,13 @@ export class DocutestComponent implements OnInit {
       email: [null, [Validators.email, Validators.required]],
       address: [null, [Validators.required]],
       number: [null, [Validators.minLength(10), Validators.maxLength(10), Validators.required]],
-      product: [null, [Validators.required]],
-      price: [null, [Validators.required, Validators.min(0)]],
-      quantity: [null, [Validators.required, Validators.min(0)]],
+      products: this.fb.array([
+        this.fb.group({
+          product: [null, [Validators.required]],
+          price: [null, [Validators.required, Validators.min(0)]],
+          quantity: [null, [Validators.required, Validators.min(0)]],
+        })
+      ]),
       details: [null, [Validators.maxLength(100)]]
     });
   }
@@ -58,10 +62,12 @@ export class DocutestComponent implements OnInit {
   }
 
   generatePDF(): void {
-    this.submitForm();
-    const pdf = new PdfMakeWrapper();
-    try {
 
+    const pdf = new PdfMakeWrapper();
+
+    if (this.validateForm.valid == true) {
+      
+      
       pdf.add(
         new Txt('Documento de prueba N°1').alignment('center').fontSize(16).color('#047886').end
       );
@@ -148,9 +154,12 @@ export class DocutestComponent implements OnInit {
       });
 
       pdf.create().open();
-    } catch (error) {
-      this.message.error('Un error ha ocurrido y no se ha generado el PDF');
+
+    } else {
+      this.submitForm();
+      this.message.error('Por favor llena todo el formulario o verifica que no haya errores');
     }
+    
   }
 
   addProduct(): void{
